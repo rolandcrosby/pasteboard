@@ -56,21 +56,20 @@ def main():
     sp = parser.add_subparsers()
 
     sp_types = sp.add_parser('types', help='show available types')
+    sp._name_parser_map['t'] = sp._name_parser_map['types']
     sp_types.set_defaults(func=c_types)
     sp_types.add_argument('type', nargs='?', help="type to check for conformance with")
     
     sp_paste = sp.add_parser('paste', help='get contents of pasteboard')
+    sp._name_parser_map['p'] = sp._name_parser_map['paste']
     sp_paste.set_defaults(func=c_paste)
     sp_paste.add_argument('type', nargs='?', help="explicit type to request")
 
     sp_filter = sp.add_parser('filter', help='filter pasteboard to conforming types')
+    sp._name_parser_map['f'] = sp._name_parser_map['filter']
     sp_filter.set_defaults(func=c_filter)
     sp_filter.add_argument('type', help='type to filter for conformance')
     
-    if sys.version_info > (3, 0):
-        sp._name_parser_map['t'] = sp._name_parser_map['types']
-        sp._name_parser_map['p'] = sp._name_parser_map['paste']
-        sp._name_parser_map['f'] = sp._name_parser_map['filter']
 
     args = parser.parse_args()
     if not 'func' in args:
