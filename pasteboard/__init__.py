@@ -68,9 +68,9 @@ def main():
     sp_filter.add_argument('type', help='type to filter for conformance')
     
     if sys.version_info > (3, 0):
-        sp_types.aliases = ['t']
-        sp_paste.aliases = ['p']
-        sp_filter.aliases = ['f']
+        sp._name_parser_map['t'] = sp._name_parser_map['types']
+        sp._name_parser_map['p'] = sp._name_parser_map['paste']
+        sp._name_parser_map['f'] = sp._name_parser_map['filter']
 
     args = parser.parse_args()
     if not 'func' in args:
