@@ -1,4 +1,3 @@
-from __future__ import print_function
 from AppKit import NSPasteboard
 from CoreServices import UTTypeConformsTo
 import argparse
@@ -70,6 +69,12 @@ def main():
     sp_filter.set_defaults(func=c_filter)
     sp_filter.add_argument('type', help='type to filter for conformance')
     
+    sp_image = sp.add_parser('image', help='filter pasteboard to public.image')
+    sp._name_parser_map['im'] = sp._name_parser_map['image']
+    sp_image.set_defaults(func=lambda x: c_filter(argparse.Namespace(type='public.image')))
+
+    sp_text = sp.add_parser('text', help='filter pasteboard to public.plain-text')
+    sp_text.set_defaults(func=lambda x: c_filter(argparse.Namespace(type='public.plain-text')))    
 
     args = parser.parse_args()
     if not 'func' in args:
